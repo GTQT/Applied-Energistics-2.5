@@ -178,8 +178,8 @@ public final class WorldHelper {
     }
 
     /**
-     * Get the GT MetaTileEntity at the given position.
-     * Base implementation returns null, actual logic injected by GregTech via Mixin.
+     * Get the GT MetaTileEntity at the given position. Base implementation returns null, actual logic injected by
+     * GregTech via Mixin.
      */
     public static Object getMetaTileEntity(IBlockAccess world, BlockPos pos) {
         return null;

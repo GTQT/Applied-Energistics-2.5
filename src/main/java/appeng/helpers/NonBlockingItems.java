@@ -77,12 +77,12 @@ public class NonBlockingItems {
     }
 
     /**
-     * Lookup GT MetaItem and register it into NON_BLOCKING_MAP.
-     * Base implementation returns false, actual logic injected by GregTech via Mixin.
+     * Lookup GT MetaItem and register it into NON_BLOCKING_MAP. Base implementation returns false, actual logic
+     * injected by GregTech via Mixin.
      *
-     * @param modid the mod ID
+     * @param modid       the mod ID
      * @param modItemMeta the split mod:item:meta array
-     * @param rawEntry the raw config string entry
+     * @param rawEntry    the raw config string entry
      * @return true if the item was found
      */
     protected boolean lookupGTMetaItem(String modid, String[] modItemMeta, String rawEntry) {

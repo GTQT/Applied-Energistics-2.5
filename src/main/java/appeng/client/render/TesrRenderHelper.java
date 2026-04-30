@@ -214,9 +214,9 @@ public class TesrRenderHelper {
      * <p>
      * Assumes the caller has already:
      * <ul>
-     *   <li>Set appropriate scale (e.g., 1/62.0 for standard UI text size)</li>
-     *   <li>Disabled lighting ({@code GlStateManager.disableLighting()})</li>
-     *   <li>Disabled depth writing ({@code GlStateManager.depthMask(false)}) if needed</li>
+     * <li>Set appropriate scale (e.g., 1/62.0 for standard UI text size)</li>
+     * <li>Disabled lighting ({@code GlStateManager.disableLighting()})</li>
+     * <li>Disabled depth writing ({@code GlStateManager.depthMask(false)}) if needed</li>
      * </ul>
      * This method will horizontally center the text and render it at (0, 0) in the current coordinate system.
      *
@@ -262,16 +262,17 @@ public class TesrRenderHelper {
     /**
      * Render an item in 2D with a rate indicator text below it (e.g., "+114/s").
      * <p>
-     * The rate text is rendered centered below the item icon with the specified color.
-     * Caller must ensure lighting is disabled and appropriate scaling is applied before calling.
+     * The rate text is rendered centered below the item icon with the specified color. Caller must ensure lighting is
+     * disabled and appropriate scaling is applied before calling.
      *
-     * @param itemStack  The item stack to render
-     * @param itemScale  Scale factor for the item icon (e.g., 0.6f)
-     * @param spacing    Vertical spacing between item icon and rate text (e.g., 0.17f)
-     * @param rateText   Formatted rate text to display (e.g., "+114/s")
-     * @param color      ARGB color for the rate text (e.g., 0xFF00FF00 for green)
+     * @param itemStack The item stack to render
+     * @param itemScale Scale factor for the item icon (e.g., 0.6f)
+     * @param spacing   Vertical spacing between item icon and rate text (e.g., 0.17f)
+     * @param rateText  Formatted rate text to display (e.g., "+114/s")
+     * @param color     ARGB color for the rate text (e.g., 0xFF00FF00 for green)
      */
-    public static void renderItem2dWithRate(IAEItemStack itemStack, float itemScale, float spacing, String rateText, int color) {
+    public static void renderItem2dWithRate(IAEItemStack itemStack, float itemScale, float spacing, String rateText,
+            int color) {
         final ItemStack renderStack = itemStack.asItemStackRepresentation();
         TesrRenderHelper.renderItem2d(renderStack, itemScale);
 
@@ -288,8 +289,8 @@ public class TesrRenderHelper {
     /**
      * Render a fluid in 2D with a rate indicator text below it (e.g., "-514/min").
      * <p>
-     * The rate text is rendered centered below the fluid icon with the specified color.
-     * Caller must ensure lighting is disabled and appropriate scaling is applied before calling.
+     * The rate text is rendered centered below the fluid icon with the specified color. Caller must ensure lighting is
+     * disabled and appropriate scaling is applied before calling.
      *
      * @param fluidStack The fluid stack to render
      * @param scale      Scale factor for the fluid icon (e.g., 0.6f)
@@ -297,7 +298,8 @@ public class TesrRenderHelper {
      * @param rateText   Formatted rate text to display (e.g., "-514/min")
      * @param color      ARGB color for the rate text (e.g., 0xFFFF5555 for red)
      */
-    public static void renderFluid2dWithRate(IAEFluidStack fluidStack, float scale, float spacing, String rateText, int color) {
+    public static void renderFluid2dWithRate(IAEFluidStack fluidStack, float scale, float spacing, String rateText,
+            int color) {
         final FluidStack renderStack = fluidStack.getFluidStack();
         TesrRenderHelper.renderFluid2d(renderStack, scale);
 

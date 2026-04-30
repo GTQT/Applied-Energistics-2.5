@@ -19,9 +19,7 @@
 package appeng.parts.reporting;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 
-import appeng.api.util.AEUtils;
 import io.netty.buffer.ByteBuf;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -54,6 +52,7 @@ import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
+import appeng.api.util.AEUtils;
 import appeng.client.render.TesrRenderHelper;
 import appeng.core.AppEng;
 import appeng.fluids.util.AEFluidStack;
@@ -125,11 +124,13 @@ public class PartRateMonitor extends AbstractPartDisplay implements IStackWatche
         super.writeToNBT(data);
 
         final NBTTagCompound itemTag = new NBTTagCompound();
-        if (this.configuredItem != null) this.configuredItem.writeToNBT(itemTag);
+        if (this.configuredItem != null)
+            this.configuredItem.writeToNBT(itemTag);
         data.setTag("configuredItem", itemTag);
 
         final NBTTagCompound fluidTag = new NBTTagCompound();
-        if (this.configuredFluid != null) this.configuredFluid.writeToNBT(fluidTag);
+        if (this.configuredFluid != null)
+            this.configuredFluid.writeToNBT(fluidTag);
         data.setTag("configuredFluid", fluidTag);
 
         data.setLong("lastSecondAmount", this.lastSecondAmount);
@@ -220,7 +221,8 @@ public class PartRateMonitor extends AbstractPartDisplay implements IStackWatche
             FluidStack fluidInTank = null;
 
             if (held.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-                IFluidHandlerItem fluidHandlerItem = (held.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null));
+                IFluidHandlerItem fluidHandlerItem = (held
+                        .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null));
                 fluidInTank = fluidHandlerItem.drain(Integer.MAX_VALUE, false);
             }
             final AEFluidStack fluidStack = AEFluidStack.fromFluidStack(fluidInTank);
@@ -349,7 +351,7 @@ public class PartRateMonitor extends AbstractPartDisplay implements IStackWatche
 
     @Override
     public void onStackChange(IItemList<?> o, IAEStack<?> fullStack, IAEStack<?> diffStack, IActionSource src,
-                              IStorageChannel<?> chan) {
+            IStorageChannel<?> chan) {
         if (this.configuredItem != null && fullStack instanceof IAEItemStack) {
             this.currentAmount = fullStack.getStackSize();
         } else if (this.configuredFluid != null && fullStack instanceof IAEFluidStack) {
@@ -396,8 +398,8 @@ public class PartRateMonitor extends AbstractPartDisplay implements IStackWatche
     @Override
     @SideOnly(Side.CLIENT)
     public void renderDynamic(double x, double y, double z, float partialTicks, int destroyStage) {
-        if ((this.getClientFlags() & (PartPanel.POWERED_FLAG | PartPanel.CHANNEL_FLAG))
-                != (PartPanel.POWERED_FLAG | PartPanel.CHANNEL_FLAG)) {
+        if ((this.getClientFlags() & (PartPanel.POWERED_FLAG | PartPanel.CHANNEL_FLAG)) != (PartPanel.POWERED_FLAG
+                | PartPanel.CHANNEL_FLAG)) {
             return;
         }
 
@@ -427,16 +429,14 @@ public class PartRateMonitor extends AbstractPartDisplay implements IStackWatche
                     0.6f,
                     0.17f,
                     rateText,
-                    color
-            );
+                    color);
         } else if (displayed instanceof IAEFluidStack) {
             TesrRenderHelper.renderFluid2dWithRate(
                     (IAEFluidStack) displayed,
                     0.6f,
                     0.17f,
                     rateText,
-                    color
-            );
+                    color);
         }
 
         GlStateManager.depthMask(true);
@@ -486,8 +486,6 @@ public class PartRateMonitor extends AbstractPartDisplay implements IStackWatche
             final TimeUnit[] values = values();
             return values[(this.ordinal() + 1) % values.length];
         }
-
-
 
         public String getSuffix() {
             return this.suffix;

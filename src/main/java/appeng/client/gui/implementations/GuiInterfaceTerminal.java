@@ -330,8 +330,7 @@ public class GuiInterfaceTerminal extends AEBaseGui {
                         final int slotIndex = baseSlot + z;
                         if (slotIndex < slotLimit) {
                             this.inventorySlots.inventorySlots.add(
-                                    new SlotDisconnected(inv, slotIndex, z * 18 + 22, 1 + offset)
-                            );
+                                    new SlotDisconnected(inv, slotIndex, z * 18 + 22, 1 + offset));
                         }
                     }
                     linesDraw++;
@@ -463,6 +462,7 @@ public class GuiInterfaceTerminal extends AEBaseGui {
         this.searchFieldOutputs.drawTextBox();
         this.searchFieldNames.drawTextBox();
     }
+
     @Override
     protected void keyTyped(final char character, final int key) throws IOException {
         if (!this.checkHotbarKeys(key)) {
@@ -533,7 +533,8 @@ public class GuiInterfaceTerminal extends AEBaseGui {
                     final ClientDCInternalInv current;
                     if (isProvider) {
                         int slotCount = invData.getInteger("slots");
-                        current = this.getProviderById(id, invData.getLong("sortBy"), invData.getString("un"),slotCount);
+                        current = this.getProviderById(id, invData.getLong("sortBy"), invData.getString("un"),
+                                slotCount);
                     } else {
                         current = this.getById(id, invData.getLong("sortBy"), invData.getString("un"));
                     }
@@ -545,8 +546,8 @@ public class GuiInterfaceTerminal extends AEBaseGui {
                         numUpgradesMap.put(current, invData.getInteger("numUpgrades"));
                     } else {
                         int tier = invData.getInteger("tier");
-                        int slotCount = (int) Math.pow(2 ,1 + Math.min(9, tier));
-                        int lines = slotCount/9;
+                        int slotCount = (int) Math.pow(2, 1 + Math.min(9, tier));
+                        int lines = slotCount / 9;
                         numUpgradesMap.put(current, lines);
                     }
 
@@ -690,7 +691,7 @@ public class GuiInterfaceTerminal extends AEBaseGui {
 
                     if ((!searchFieldInputs.isEmpty() && itemStackMatchesSearchTerm(itemStack, searchFieldInputs, 0))
                             || (!searchFieldOutputs.isEmpty()
-                            && itemStackMatchesSearchTerm(itemStack, searchFieldOutputs, 1))) {
+                                    && itemStackMatchesSearchTerm(itemStack, searchFieldOutputs, 1))) {
                         found = true;
                         matchedStacks.add(itemStack);
                     }
@@ -738,8 +739,7 @@ public class GuiInterfaceTerminal extends AEBaseGui {
         Collections.sort(this.names);
 
         this.lines.clear();
-        this.lines.ensureCapacity(this.names.size() + this.byId.size()+ this.providerById.size());
-
+        this.lines.ensureCapacity(this.names.size() + this.byId.size() + this.providerById.size());
 
         for (final String n : this.names) {
             this.lines.add(n);
@@ -861,7 +861,8 @@ public class GuiInterfaceTerminal extends AEBaseGui {
         return o;
     }
 
-    private ClientDCInternalInv getProviderById(final long id, final long sortBy, final String string,final int stackSize) {
+    private ClientDCInternalInv getProviderById(final long id, final long sortBy, final String string,
+            final int stackSize) {
         ClientDCInternalInv o = this.providerById.get(id);
 
         if (o == null) {

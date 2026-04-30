@@ -27,8 +27,7 @@ public class AETrack {
     }
 
     /**
-     * Track GT pattern provider location.
-     * Base implementation is empty, actual logic injected by GregTech via Mixin.
+     * Track GT pattern provider location. Base implementation is empty, actual logic injected by GregTech via Mixin.
      */
     protected static void trackGTProvider(ICraftingProvider provider, EntityPlayer player) {
     }

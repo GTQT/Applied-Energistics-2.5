@@ -92,7 +92,8 @@ final class PlayerData extends WorldSavedData implements IWorldPlayerData {
             // NBTTagLongArray has no public getter, use reflection to access data field
             // Pass both SRG name "field_193587_b" and MCP name "data" for dev/prod compatibility
             profileIds = net.minecraftforge.fml.relauncher.ReflectionHelper
-                    .getPrivateValue(NBTTagLongArray.class, (NBTTagLongArray) nbt.getTag(TAG_PROFILE_IDS), "field_193587_b", "data");
+                    .getPrivateValue(NBTTagLongArray.class, (NBTTagLongArray) nbt.getTag(TAG_PROFILE_IDS),
+                            "field_193587_b", "data");
         } else {
             profileIds = new long[0];
         }

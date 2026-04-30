@@ -26,12 +26,13 @@ package appeng.api.networking.crafting;
 import net.minecraft.inventory.InventoryCrafting;
 
 /**
- * Extends {@link ICraftingMedium} to support pushing multiple copies of the same pattern's materials at once.
- * Ported from Programmable-Hatches-Mod's IMultiplePatternPushable interface.
+ * Extends {@link ICraftingMedium} to support pushing multiple copies of the same pattern's materials at once. Ported
+ * from Programmable-Hatches-Mod's IMultiplePatternPushable interface.
  *
- * <p>When the crafting CPU detects that a medium implements this interface, it will extract
- * multiple copies of materials from the AE storage at once and call {@link #pushPatternMulti},
- * greatly reducing the number of interactions.</p>
+ * <p>
+ * When the crafting CPU detects that a medium implements this interface, it will extract multiple copies of materials
+ * from the AE storage at once and call {@link #pushPatternMulti}, greatly reducing the number of interactions.
+ * </p>
  */
 public interface IMultiplePatternPushable extends ICraftingMedium {
 
@@ -41,9 +42,8 @@ public interface IMultiplePatternPushable extends ICraftingMedium {
      * @param patternDetails the crafting pattern details
      * @param table          single-copy material InventoryCrafting (same as pushPattern)
      * @param maxTodo        maximum number of copies allowed to push (determined by AE storage and remaining tasks)
-     * @return actual number of copies pushed as an array;
-     *         length==1: [0] is the number of copies actually pushed and consumed;
-     *         length==2: [0] is pushed count, [1] is consumed count
+     * @return actual number of copies pushed as an array; length==1: [0] is the number of copies actually pushed and
+     *         consumed; length==2: [0] is pushed count, [1] is consumed count
      */
     int[] pushPatternMulti(ICraftingPatternDetails patternDetails, InventoryCrafting table, int maxTodo);
 }

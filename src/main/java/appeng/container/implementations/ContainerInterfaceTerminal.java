@@ -18,6 +18,25 @@
 
 package appeng.container.implementations;
 
+import static appeng.helpers.ItemStackHelper.stackWriteToNBT;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+
 import appeng.api.config.Settings;
 import appeng.api.config.Upgrades;
 import appeng.api.config.YesNo;
@@ -47,26 +66,6 @@ import appeng.util.inv.WrapperCursorItemHandler;
 import appeng.util.inv.WrapperFilteredItemHandler;
 import appeng.util.inv.WrapperRangeItemHandler;
 import appeng.util.inv.filter.IAEItemFilter;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import static appeng.helpers.ItemStackHelper.stackWriteToNBT;
 
 public class ContainerInterfaceTerminal extends AEBaseContainer {
 
@@ -93,7 +92,7 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
     }
 
     public ContainerInterfaceTerminal(final InventoryPlayer ip, final WirelessTerminalGuiObject guiObject,
-                                      boolean bindInventory) {
+            boolean bindInventory) {
         super(ip, guiObject);
 
         if (Platform.isServer()) {
@@ -363,8 +362,7 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
                         int slotCount = (int) Math.pow(2, 1 + Math.min(9, providerTracker.tier));
                         int patternSlotLimit = Math.min(
                                 slotCount,
-                                providerTracker.server.getSlots()
-                        );
+                                providerTracker.server.getSlots());
 
                         var handler = new WrapperFilteredItemHandler(
                                 new WrapperRangeItemHandler(providerTracker.server, 0, patternSlotLimit),
@@ -535,8 +533,8 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
     }
 
     /**
-     * Check GT pattern provider changes.
-     * Base implementation returns {0, 0}, actual logic injected by GregTech via Mixin.
+     * Check GT pattern provider changes. Base implementation returns {0, 0}, actual logic injected by GregTech via
+     * Mixin.
      *
      * @return int array where [0] = total count, [1] = 1 if missing else 0
      */
@@ -545,8 +543,7 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
     }
 
     /**
-     * Collect GT pattern providers.
-     * Base implementation is empty, actual logic injected by GregTech via Mixin.
+     * Collect GT pattern providers. Base implementation is empty, actual logic injected by GregTech via Mixin.
      */
     protected void collectGTProviders() {
     }
@@ -593,7 +590,6 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
 
         data.setTag(name, tag);
     }
-
 
     private void addItems(final NBTTagCompound data, final InvTracker inv, final int offset, final int length) {
         final String name = '=' + Long.toString(inv.which, Character.MAX_RADIX);
@@ -658,8 +654,7 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
         public final long sortBy;
 
         /**
-         * General constructor for GT pattern provider tracking.
-         * Actual instantiation injected by GregTech via Mixin.
+         * General constructor for GT pattern provider tracking. Actual instantiation injected by GregTech via Mixin.
          */
         public ProviderTracker(BlockPos pos, int dim, int tier, IItemHandler server, String unlocalizedName) {
             this.pos = pos;
@@ -675,7 +670,6 @@ public class ContainerInterfaceTerminal extends AEBaseContainer {
             return ((long) pos.getZ() << 24) ^ ((long) pos.getX() << 8) ^ pos.getY();
         }
     }
-
 
     private static class InvTracker {
 

@@ -8,8 +8,7 @@ import net.minecraft.item.ItemStack;
 import appeng.api.storage.data.IAEStack;
 
 /**
- * GT 可编程电路集成辅助类。
- * 基础实现全部返回默认值/空值，由 GregTech 在运行时通过 setInstance() 注册实际实现。
+ * GT 可编程电路集成辅助类。 基础实现全部返回默认值/空值，由 GregTech 在运行时通过 setInstance() 注册实际实现。
  */
 public class CircuitHelper {
 

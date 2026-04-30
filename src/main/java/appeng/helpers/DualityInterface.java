@@ -1524,11 +1524,11 @@ public class DualityInterface implements IGridTickable, IStorageMonitorable, IIn
     }
 
     /**
-     * Get the display name of a GT machine.
-     * Base implementation returns null, actual logic injected by GregTech via Mixin.
+     * Get the display name of a GT machine. Base implementation returns null, actual logic injected by GregTech via
+     * Mixin.
      *
      * @param world the world
-     * @param pos the block position
+     * @param pos   the block position
      * @param block the block at the position
      * @return the machine name, or null if not a GT machine
      */

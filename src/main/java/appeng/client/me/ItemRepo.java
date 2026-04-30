@@ -19,6 +19,18 @@
 
 package appeng.client.me;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.oredict.OreDictionary;
 
 import appeng.api.AEApi;
 import appeng.api.config.*;
@@ -34,21 +46,11 @@ import appeng.items.storage.ItemViewCell;
 import appeng.util.ItemSorters;
 import appeng.util.Platform;
 import appeng.util.prioritylist.IPartitionList;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.oredict.OreDictionary;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
 
 public class ItemRepo {
 
-    private final IItemList<IAEItemStack> list = AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class).createList();
+    private final IItemList<IAEItemStack> list = AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class)
+            .createList();
     private List<IAEItemStack> view = new ArrayList<>();
     private final IScrollSource src;
     private final ISortSource sortSrc;
@@ -67,7 +69,6 @@ public class ItemRepo {
 
     private boolean resort = true;
     private boolean changed = false;
-
 
     public ItemRepo(final IScrollSource src, final ISortSource sortSrc) {
         this.src = src;
@@ -125,7 +126,9 @@ public class ItemRepo {
             lastSearchMode = searchMode;
         }
 
-        if (searchMode == SearchBoxMode.JEI_AUTOSEARCH || searchMode == SearchBoxMode.JEI_MANUAL_SEARCH || searchMode == SearchBoxMode.JEI_AUTOSEARCH_KEEP || searchMode == SearchBoxMode.JEI_MANUAL_SEARCH_KEEP) {
+        if (searchMode == SearchBoxMode.JEI_AUTOSEARCH || searchMode == SearchBoxMode.JEI_MANUAL_SEARCH
+                || searchMode == SearchBoxMode.JEI_AUTOSEARCH_KEEP
+                || searchMode == SearchBoxMode.JEI_MANUAL_SEARCH_KEEP) {
             this.updateJEI(this.searchString);
         }
 
@@ -215,8 +218,8 @@ public class ItemRepo {
         // Original setting behavior:
         // enabled = normal terms also search tooltip
         // disabled = only # searches tooltip
-        final boolean tooltipSearchEnabled =
-                AEConfig.instance().getConfigManager().getSetting(Settings.SEARCH_TOOLTIPS) != YesNo.NO;
+        final boolean tooltipSearchEnabled = AEConfig.instance().getConfigManager()
+                .getSetting(Settings.SEARCH_TOOLTIPS) != YesNo.NO;
 
         // Base strings (null-safe)
         final String itemName = lower(Platform.getItemDisplayName(is));
@@ -268,7 +271,9 @@ public class ItemRepo {
                 char prefix = raw.charAt(0);
                 String term = raw;
 
-                enum Target { NAME, MOD, TOOLTIP, OREDICT, REGISTRY }
+                enum Target {
+                    NAME, MOD, TOOLTIP, OREDICT, REGISTRY
+                }
                 Target target = Target.NAME;
 
                 if (prefix == '@' || prefix == '#' || prefix == '$' || prefix == '&' || prefix == '*') {
@@ -277,10 +282,14 @@ public class ItemRepo {
                         continue;
                     }
 
-                    if (prefix == '@') target = Target.MOD;
-                    else if (prefix == '#') target = Target.TOOLTIP;
-                    else if (prefix == '$') target = Target.OREDICT;
-                    else target = Target.REGISTRY; // & or *
+                    if (prefix == '@')
+                        target = Target.MOD;
+                    else if (prefix == '#')
+                        target = Target.TOOLTIP;
+                    else if (prefix == '$')
+                        target = Target.OREDICT;
+                    else
+                        target = Target.REGISTRY; // & or *
                 }
 
                 boolean termMatches = false;
@@ -295,8 +304,10 @@ public class ItemRepo {
                                 StringBuilder sb = new StringBuilder();
                                 for (int i = 0; i < lines.size(); i++) {
                                     String line = lines.get(i);
-                                    if (line == null) continue;
-                                    if (sb.length() > 0) sb.append('\n');
+                                    if (line == null)
+                                        continue;
+                                    if (sb.length() > 0)
+                                        sb.append('\n');
                                     sb.append(line);
                                 }
 
@@ -331,8 +342,10 @@ public class ItemRepo {
                             StringBuilder sb = new StringBuilder();
                             for (int i = 0; i < lines.size(); i++) {
                                 String line = lines.get(i);
-                                if (line == null) continue;
-                                if (sb.length() > 0) sb.append('\n');
+                                if (line == null)
+                                    continue;
+                                if (sb.length() > 0)
+                                    sb.append('\n');
                                 sb.append(line);
                             }
                             String joined = sb.toString();
@@ -349,7 +362,8 @@ public class ItemRepo {
                         if (!stack.isEmpty()) {
                             if (oreIds == null) {
                                 oreIds = OreDictionary.getOreIDs(stack);
-                                if (oreIds == null) oreIds = new int[0];
+                                if (oreIds == null)
+                                    oreIds = new int[0];
                             }
                             for (int id : oreIds) {
                                 String oreName = OreDictionary.getOreName(id);
@@ -367,7 +381,8 @@ public class ItemRepo {
                         }
                         if (!stack.isEmpty()) {
                             if (registryId == null) {
-                                ResourceLocation rl = stack.getItem() == null ? null : stack.getItem().getRegistryName();
+                                ResourceLocation rl = stack.getItem() == null ? null
+                                        : stack.getItem().getRegistryName();
                                 registryId = lower(rl == null ? "" : rl.toString());
                             }
                             termMatches = registryId.contains(term);
@@ -396,8 +411,6 @@ public class ItemRepo {
             this.view.add(is);
         }
     }
-
-
 
     private void updateJEI(String filter) {
         Integrations.jei().setSearchText(filter);
@@ -438,7 +451,6 @@ public class ItemRepo {
     public IItemList<IAEItemStack> getList() {
         return list;
     }
-
 
     private static String lower(String s) {
         return s == null ? "" : s.toLowerCase(Locale.ROOT);
